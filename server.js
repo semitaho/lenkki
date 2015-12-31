@@ -10,5 +10,9 @@ app.get('/', function(req, res) {
       res.sendfile('./index.html'); // load our public/index.html file
     });
 
+app.get('/getUsers/:id', function(req,res){
+  res.send({'id' : req.params.id});
+});
+
 app.listen(8080);
 console.log('testing framework...');
