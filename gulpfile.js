@@ -6,7 +6,8 @@ var gulp = require('gulp'),
   browserify = require('browserify'),
   source = require('vinyl-source-stream'), 
   html = 'app/**/*.html',
-  styles = 'styles/lenkki.styl';
+  styles = 'styles/lenkki.styl',
+  scriptfiles = 'app/js/**';
  
 gulp.task('webserver', function() {
   gulp.src('www')
@@ -23,14 +24,19 @@ gulp.task('copyhtml', function(){
 
 gulp.task('styles', function(){
   return gulp.src(styles)
-    .pipe(stylus())
+    .pipe(stylus({
+      'include css': true
+      }))
     .pipe(gulp.dest('./www/css/'));
 });
 
 gulp.task('scripts', function() {
   return browserify({
-    entries: './app/js/app.js'})
-    .transform(babelify)
+      entries: './app/js/app.js', 
+      extensions: ['.js', '.jsx'],
+      debug: true
+    })
+    .transform(babelify, {presets: ['es2015', 'react']})
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('www/js'));
@@ -40,6 +46,7 @@ gulp.task('scripts', function() {
 gulp.task('watch', function(){
   gulp.watch(html, ['copyhtml']);
   gulp.watch(styles, ['styles']);
+  gulp.watch(scriptfiles, ['scripts']);
 
 });
 
