@@ -44,6 +44,8 @@ function statusChangeCallback(response) {
   } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
       console.log('Please log into this app.');
+      ReactDOM.render(<LoginModal />, modaldiv);
+
 
     } else {
       // The person is not logged into Facebook, so we're not sure if
@@ -55,11 +57,24 @@ function statusChangeCallback(response) {
   }
 
 window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '10154475914731038',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
+
+    console.log('window location', window.location.hostname);
+
+    if (window.location.hostname.indexOf('semitaho.github.io') > -1){
+      console.log('going prod');
+      FB.init({
+        appId      : '6632016037',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    } else {
+      FB.init({
+        appId      : '10154475914731038',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    }
+
     FB.getLoginStatus(response =>  {
         statusChangeCallback(response);
     });
