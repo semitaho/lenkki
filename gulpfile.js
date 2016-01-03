@@ -22,6 +22,11 @@ gulp.task('copyhtml', function(){
     .pipe(gulp.dest('www'));
 });
 
+gulp.task('copyfonts', function(){
+  return gulp.src('node_modules/bootstrap/dist/fonts/**')
+    .pipe(gulp.dest('www/fonts'));
+});
+
 gulp.task('styles', function(){
   return gulp.src(styles)
     .pipe(stylus({
@@ -50,4 +55,4 @@ gulp.task('watch', function(){
 
 });
 
-gulp.task('default', ['copyhtml', 'styles', 'scripts', 'webserver', 'watch']);
+gulp.task('default', ['copyhtml', 'styles', 'scripts', 'copyfonts', 'webserver', 'watch']);
