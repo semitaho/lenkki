@@ -13,8 +13,9 @@ class LenkkiModal extends React.Component{
     const onSave = () => {
       console.log('kilometrit', this._input.value);
       let length = this._input.value.replace(',', '.') * 100;
-      lenkkiService.store(null, 'taho', this.props.day, this.props.month, this.props.year, length, success => {
+      lenkkiService.store(this.props._id, 'taho', this.props.day, this.props.month, this.props.year, length, success => {
         console.log('on success', success);
+        this.props.onSave(success);
 
       });
     };
@@ -22,7 +23,6 @@ class LenkkiModal extends React.Component{
     const onChange = () => {
       var pattern = /^\d+((\,)?\d{0,2})?$/;
 
-      console.log('valie', this._input.value);
 
       if (this._input.value.trim() === ''){
         this.setState({currentvalue: ''});
@@ -59,6 +59,10 @@ class LenkkiModal extends React.Component{
           </div> 
          </div>
       </div>)
+  }
+
+  componentWillReceiveProps(nextprops){
+    this.setState({currentvalue: nextprops.length})
   }
 
   componentDidMount(){

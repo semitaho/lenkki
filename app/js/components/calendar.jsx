@@ -1,6 +1,8 @@
 import React from 'react';
 import Day from './day';
 import LenkkiModal from './lenkkimodal';
+import lenkkiService from './../services/lenkkiservice.js';
+
 class Calendar extends React.Component {
 
   constructor(){
@@ -9,11 +11,9 @@ class Calendar extends React.Component {
   }
 
   renderDays(){
-
     let monthdays = [31,28,31,30,31,30,31,31,30,31,30,31];
     var firstDay = new Date(this.props.year, this.props.month-1, 1);
     var startingDay = firstDay.getDay();
-
     let currentDay = new Date().getDate();
     let currentMonth = new Date().getMonth();
     const MAX_WEEKS = 6;
@@ -25,7 +25,9 @@ class Calendar extends React.Component {
       for (let j = 1; j <= WEEKDAYS; j++){
         if (day <= MONTH_LENGTH && (i > 0 || j >= startingDay)){
           let currentClass = day === currentDay && this.props.month === currentMonth+1 ? 'current' : '';
-          html.push(<div className="col-box text-right day-box"><Day onClick={this.props.onClick} value={day} state={currentClass} /></div>);
+          let item = lenkkiService.getItem('taho',day, this.props.month-1, this.props.year, this.props.lenkkidata);
+          let length = item.length ? (item.length / 100).toFixed(2).replace('.', ',') : '';
+          html.push(<div className="col-box text-right day-box"><Day onClick={this.props.onClick} _id={item._id} length={length} value={day} state={currentClass} /></div>);
           day++;
         } else {
           html.push(<div className="col-box" />)
