@@ -45,15 +45,23 @@ class Lenkki  extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-10">
-              <h1>Hiihtopäiväkirja</h1>
+              <div
+                className="fb-like"
+                data-share="true"
+                data-width="450"
+                data-show-faces="true">
+              </div>
             </div>
-            <div className="col-md-2">
-              <UserSelect onChange={onUserChange} value={this.state.userselectvalue} />
+             <div className="col-md-2 text-right">
+              Tervetuloa {this.props.name}.
             </div>
           </div>
           <div className="row">
+            <div className="col-md-10">
+              <h1>Hiihtopäiväkirja</h1>
+            </div>
           </div>
-
+         
           <div className="row">
             <div className="col-md-12">
               <div className="carousel">

@@ -13,7 +13,7 @@ class LenkkiModal extends React.Component{
     const onSave = () => {
       console.log('kilometrit', this._input.value);
       let length = this._input.value.replace(',', '.') * 100;
-      lenkkiService.store(this.props._id,  this.props.day, this.props.month, this.props.year, length, success => {
+      lenkkiService.store(this.props._id, this.props.day, this.props.month, this.props.year, length, success => {
         console.log('on success', success);
         this.props.onSave(success);
 
@@ -34,8 +34,6 @@ class LenkkiModal extends React.Component{
         console.log('invalid', this._input.value);
       }
     };
-
-    console.log('props', this.props);
     
     return (
       <div id="lenkkiModal" className="modal fade" role="dialog">
