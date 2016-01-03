@@ -25,7 +25,7 @@ class Calendar extends React.Component {
       for (let j = 1; j <= WEEKDAYS; j++){
         if (day <= MONTH_LENGTH && (i > 0 || j >= startingDay)){
           let currentClass = day === currentDay && this.props.month === currentMonth+1 ? 'current' : '';
-          let item = lenkkiService.getItem('taho',day, this.props.month-1, this.props.year, this.props.lenkkidata);
+          let item = lenkkiService.getItem(day, this.props.month-1, this.props.year, this.props.lenkkidata);
           let length = item.length ? (item.length / 100).toFixed(2).replace('.', ',') : '';
           html.push(<div className="col-box text-right day-box"><Day onClick={this.props.onClick} _id={item._id} length={length} value={day} state={currentClass} /></div>);
           day++;
@@ -49,7 +49,9 @@ class Calendar extends React.Component {
           
                 <div className="row">
                   <div className="col-md-12 text-center calendar-header">
-                         <h3>{monthName} {this.props.year}</h3>
+                         <h3>{monthName} {this.props.year}<br/><small>Kilometrejä tässä kuussa: <b>{lenkkiService.getMonthKilometers(this.props.month-1, this.props.year, this.props.lenkkidata)} km</b></small></h3>
+
+         
                   </div>
                 </div>
                 <div className="row text-center">

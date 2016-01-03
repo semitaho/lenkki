@@ -1,27 +1,15 @@
 import React from 'react';
 import Calendar from './calendar';
 import LenkkiModal from './lenkkimodal';
+import UserSelect from './userselect';
 import lenkkiService from './../services/lenkkiservice.js';
-const events = [
-    {
-        start: '2016-01-01',
-        end: '2016-01-02',
-        title: 'test event',
-        description: 'This is a test description of an event',
-    },
-    {
-        start: '2015-07-19',
-        end: '2015-07-25',
-        title: 'test event',
-        description: 'This is a test description of an event',
-        data: 'you can add what ever random data you may want to use later',
-    },
-];
+
+
 class Lenkki  extends React.Component {
 
   constructor(){
     super();
-    this.state = {month: 1, year: 2016, showmodal: false, lenkkidata: []};
+    this.state = {month: 1, year: 2016, showmodal: false, lenkkidata: [], userselectvalue: lenkkiService.getUser()};
     this.toggleMonth = this.toggleMonth.bind(this);
   }
 
@@ -44,11 +32,28 @@ class Lenkki  extends React.Component {
     }
     const onSave = () => {
       this.loadData();
+    };
+
+    const onUserChange = (event) => {
+      console.log('new value', event.target.value);
+      lenkkiService.storeUser(event.target.value);
+      this.setState({userselectvalue: event.target.value});
+      this.loadData(event.target.value);
     }
 
     return (
         <div className="container-fluid">
-          <h1>Hiihtopäiväkirja</h1>
+          <div className="row">
+            <div className="col-md-10">
+              <h1>Hiihtopäiväkirja</h1>
+            </div>
+            <div className="col-md-2">
+              <UserSelect onChange={onUserChange} value={this.state.userselectvalue} />
+            </div>
+          </div>
+          <div className="row">
+          </div>
+
           <div className="row">
             <div className="col-md-12">
               <div className="carousel">
@@ -68,8 +73,8 @@ class Lenkki  extends React.Component {
         </div>
     )
   }
-  loadData(){
-    lenkkiService.read('taho' ,data => {
+  loadData(user){
+    lenkkiService.read(user ,data => {
       this.setState({lenkkidata: data});
     });
   }
