@@ -55,4 +55,6 @@ gulp.task('watch', function(){
 
 });
 
-gulp.task('default', ['copyhtml', 'styles', 'scripts', 'copyfonts', 'webserver', 'watch']);
+var buildTasks = ['copyhtml', 'styles', 'scripts', 'copyfonts'];
+gulp.task('default', buildTasks.concat(['webserver', 'watch']));
+gulp.task('build', buildTasks);
