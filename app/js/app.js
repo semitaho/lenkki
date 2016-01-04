@@ -3,6 +3,9 @@ import React from 'react';
 import Lenkki from './components/lenkki.jsx';
 import LoginModal from './components/loginmodal';
 import lenkkiService from './services/lenkkiservice';
+import { createStore } from 'redux'
+
+
 global.jQuery = require('jquery');
 require('bootstrap');
 
