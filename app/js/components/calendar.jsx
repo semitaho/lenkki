@@ -26,8 +26,9 @@ class Calendar extends React.Component {
         if (day <= MONTH_LENGTH && (i > 0 || j >= startingDay)){
           let currentClass = day === currentDay && this.props.month === currentMonth+1 ? 'current' : '';
           let item = lenkkiService.getItem(day, this.props.month-1, this.props.year, this.props.lenkkidata);
+          let currentday = day;
           let length = item.length ? (item.length / 100).toFixed(2).replace('.', ',') : '';
-          html.push(<div className="col-box text-right day-box"><Day onClick={this.props.onClick} _id={item._id} length={length} value={day} state={currentClass} /></div>);
+          html.push(<div className="col-box text-right day-box" onClick={() => this.props.onClick(currentday, length, item._id) }  ><Day _id={item._id} length={length} value={day} state={currentClass} /></div>);
           day++;
         } else {
           html.push(<div className="col-box" />)
