@@ -1,10 +1,12 @@
+require('babel-core/register');
 var gulp = require('gulp'),
   webserver = require('gulp-webserver'),
   watch = require('gulp-watch'),
   stylus = require('gulp-stylus'),
   babelify = require('babelify'),
   browserify = require('browserify'),
-  source = require('vinyl-source-stream'), 
+  source = require('vinyl-source-stream'),
+  mocha = require('gulp-mocha'),
   html = 'app/**/*.html',
   styles = 'styles/lenkki.styl',
   scriptfiles = 'app/js/**';
@@ -58,3 +60,8 @@ gulp.task('watch', function(){
 var buildTasks = ['copyhtml', 'styles', 'scripts', 'copyfonts'];
 gulp.task('default', buildTasks.concat(['webserver', 'watch']));
 gulp.task('build', buildTasks);
+gulp.task('test', function(){
+  return gulp.src('test/**.js')
+    .pipe(mocha());
+
+});

@@ -6,7 +6,6 @@ export function setName(value) {
     type: SET_NAME,
     value
   };
-
 }
 
 export function receiveData(data) {

@@ -68,7 +68,7 @@ class Lenkki  extends React.Component {
             <div className="col-md-12">
               <div className="carousel">
                   <div className="carousel-inner">
-                      <Calendar onClick={onClick}  year={this.state.year} month={this.state.month} lenkkidata={this.state.lenkkidata} />
+                      <Calendar onClick={onClick}  year={this.props.year} month={this.props.month} lenkkidata={this.props.lenkkidata} />
                   </div>
                 <a className="carousel-control left" onClick={() => {this.toggleMonth(false) } }>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -98,7 +98,9 @@ class Lenkki  extends React.Component {
 
 function select(state){
   return {
-    name: state.name
+    name: state.name,
+    year: state.year,
+    month: state.month
   };
 
 }

@@ -47,7 +47,6 @@ function statusChangeCallback(response) {
     // Logged into your app and Facebook.
     FB.api('/me', function (response) {
       console.log('Good to see you', response);
-      lenkkiService.storeUser(response.id);
       ReactDOM.render(<Provider store={store}><Lenkki /></Provider>, app);
       store.dispatch(setName(response.name));
 
