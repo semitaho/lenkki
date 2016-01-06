@@ -2,8 +2,9 @@ import React from 'react';
 import Calendar from './calendar';
 import LenkkiModal from './lenkkimodal';
 import UserSelect from './userselect';
-import lenkkiService from './../services/lenkkiservice.js';
+import { connect } from 'react-redux'
 
+import lenkkiService from './../services/lenkkiservice.js';
 
 
 class Lenkki  extends React.Component {
@@ -95,4 +96,11 @@ class Lenkki  extends React.Component {
 
 }
 
-export default Lenkki;
+function select(state){
+  return {
+    name: state.name
+  };
+
+}
+
+export default connect(select)(Lenkki);
