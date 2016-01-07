@@ -2,12 +2,16 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import Lenkki from './components/lenkki.jsx';
 import LoginModal from './components/loginmodal';
+import thunkMiddleware from 'redux-thunk'
+
 import lenkkiService from './services/lenkkiservice';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import {setName} from './actions';
+import {setName, fetchData, toggleMonth} from './actions';
 import lenkkiApp from './reducers';
-let store = createStore(lenkkiApp);
+
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+let store = createStoreWithMiddleware(lenkkiApp);
 store.subscribe(() => {
   console.log('new state', store.getState());
 });
@@ -37,8 +41,6 @@ let app = document.getElementById('app'),
   modaldiv = document.getElementById('loginmodal');
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
-  console.log(response);
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
@@ -49,6 +51,7 @@ function statusChangeCallback(response) {
       console.log('Good to see you', response);
       ReactDOM.render(<Provider store={store}><Lenkki /></Provider>, app);
       store.dispatch(setName(response.name));
+      store.dispatch(fetchData(response.id));
 
     });
   } else if (response.status === 'not_authorized') {

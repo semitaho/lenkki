@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import {SET_NAME, RECEIVE_DATA} from './actions';
-
+import {SET_NAME, RECEIVE_DATA, TOGGLE_MONTH} from './actions';
+  
 
 
 
@@ -23,6 +23,20 @@ function lenkkiApp(state = initialState, action) {
       return Object.assign({}, state, {
         data: action.data
       });
+
+    case TOGGLE_MONTH:
+      var currentMonth = new Date(state.year, state.month-1, 1);
+      if (action.direction){
+        currentMonth.setMonth(currentMonth.getMonth()+1);
+      } else {     
+        currentMonth.setMonth(currentMonth.getMonth()-1);
+      }
+      console.log('current', currentMonth.getMonth());
+      return Object.assign({}, state, {
+        year: currentMonth.getFullYear(),
+        month: currentMonth.getMonth()+1
+      });
+        
     default:
       return state;
   }

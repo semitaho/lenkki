@@ -45,13 +45,13 @@ class LenkkiService {
 
   }
 
-  read(username, success){
+  read(username){
     let query = {username};
     let queryStr = JSON.stringify(query);
-    $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?q="+queryStr+"&apiKey="+API_KEY,
+    let promise = $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?q="+queryStr+"&apiKey="+API_KEY,
       type: "GET",
-      success,
       contentType: "application/json" } );
+    return promise;
   }
 
 
