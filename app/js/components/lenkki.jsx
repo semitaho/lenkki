@@ -11,7 +11,7 @@ class Lenkki  extends React.Component {
 
   constructor(){
     super();
-    this.state = {month: 1, year: 2016, showmodal: false, lenkkidata: [], userselectvalue: lenkkiService.getUser()};
+    this.state = {month: 1, year: 2016, showmodal: false,  userselectvalue: lenkkiService.getUser()};
   }
 
   render(){
