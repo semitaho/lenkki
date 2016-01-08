@@ -3,32 +3,15 @@ import Calendar from './calendar';
 import LenkkiModal from './lenkkimodal';
 import UserSelect from './userselect';
 import { connect } from 'react-redux'
-import {toggleMonth} from './../actions';
+import {toggleMonth, clickDay, saveDay,changeLength} from './../actions';
 import lenkkiService from './../services/lenkkiservice.js';
 
 
 class Lenkki  extends React.Component {
 
-  constructor(){
-    super();
-    this.state = {month: 1, year: 2016, showmodal: false,  userselectvalue: lenkkiService.getUser()};
-  }
 
   render(){
-    const onClick = (val, length, _id) => {
-      let dateStr = val+'.'+this.state.month+'.'+this.state.year;
-      this.setState({date: dateStr, day: val, length, _id})
-    }
-    const onSave = () => {
-      this.loadData();
-    };
-
-    const onUserChange = (event) => {
-      console.log('new value', event.target.value);
-      lenkkiService.storeUser(event.target.value);
-      this.setState({userselectvalue: event.target.value});
-      this.loadData(event.target.value);
-    }
+    let {dispatch, year, month, modal, user, clickDay} = this.props;
 
     return (
         <div className="container-fluid">
@@ -55,18 +38,18 @@ class Lenkki  extends React.Component {
             <div className="col-md-12">
               <div className="carousel">
                   <div className="carousel-inner">
-                      <Calendar onClick={onClick}  year={this.props.year} month={this.props.month} lenkkidata={this.props.lenkkidata} />
+                      <Calendar {...user} onClick={clickDay}  year={year} month={this.props.month} lenkkidata={this.props.lenkkidata} />
                   </div>
-                <a className="carousel-control left" onClick={() => {this.props.dispatch(toggleMonth(false)) } }>
+                <a className="carousel-control left" onClick={this.props.onPrevious}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </a>
-                <a className="carousel-control right" onClick={() => {this.props.dispatch(toggleMonth(true)) } } >
+                <a className="carousel-control right" onClick={this.props.onNext} >
                   <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 </a>
                 </div>
             </div> 
           </div>
-          <LenkkiModal _id={this.state._id} date={this.state.date} day={this.state.day} length={this.state.length} month={this.state.month-1} year={this.state.year} onSave={onSave} />
+          <LenkkiModal modal={modal} changeLength={this.props.changeLength} onSave={this.props.saveDay} />
         </div>
     )
   }
@@ -78,9 +61,19 @@ function select(state){
     name: state.name,
     year: state.year,
     month: state.month,
-    lenkkidata: state.data
+    user: state.user,
+    lenkkidata: state.data,
+    modal: state.modal
   };
-
+}
+function dispatchToProps(dispatch){
+  return {
+    onPrevious : () =>  dispatch(toggleMonth(false)),
+    onNext: () => dispatch(toggleMonth(true)),
+    changeLength: (val) => dispatch(changeLength(val)),
+    clickDay: (year,month,day) => dispatch(clickDay(year, month, day)),
+    saveDay: (modal) => dispatch(saveDay(modal))
+  };
 }
 
-export default connect(select)(Lenkki);
+export default connect(select, dispatchToProps)(Lenkki);

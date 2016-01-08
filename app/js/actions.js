@@ -1,16 +1,51 @@
 import lenkkiService from './services/lenkkiservice';
 export const SET_NAME = 'SET_NAME';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
+export const CLICK_DAY= 'CLICK_DAY';
+export const SAVE_DAY= 'SAVE_DAY';
+export const CHANGE_LENGTH= 'CHANGE_LENGTH';
+
 export const TOGGLE_MONTH = 'TOGGLE_MONTH';
 export const RECEIVING = 'RECEIVING';
 export const REQUEST_DATA = 'REQUEST_DATA'
 
-export function setName(value) {
+export function setName(id,value) {
   return {
     type: SET_NAME,
+    id,
     value
   };
 }
+
+export function clickDay(year,month, day){
+  return {
+    type: CLICK_DAY,
+    year,
+    month,
+    day
+  };
+}
+
+
+export function saveDay(data){
+  return (dispatch) => {
+    return lenkkiService.store(data.id, data.userid, data.day, data.month, data.year,data.length.replace(',', '.') * 100)
+      .then(() => {
+        console.log('after store');
+        dispatch(fetchData(data.userid));
+
+      } ); 
+
+  };
+}
+
+export function changeLength(length){
+  return {
+    type: CHANGE_LENGTH,
+    length
+  }
+}
+
 
 export function toggleMonth(direction){
   return {

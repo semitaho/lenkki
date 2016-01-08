@@ -4,9 +4,8 @@ const API_KEY = 'eOp9LjtwzApDNb-TbPbCEZ2V74XTSwrV';
 class LenkkiService {
 
 
-  getItem(day, month, year, data){
+  getItem(day, month, year, user, data){
     console.log('data in service', month);
-    let user = this.getUser();
     let foundItem = data.find(item => {
       return item.year === year && item.month === month && item.username === user && item.day === day;
     }); 
@@ -21,11 +20,16 @@ class LenkkiService {
     var total = 0;
     data.forEach(item => {
       if (item.year === year && item.month === month && item.username === user && item.length){
-        console.log('jaajaa');
         total += item.length;
       }
     });
+    return this.formatLength(total); 
+  }
 
+  formatLength(total){
+    if (!total){
+      return "";
+    }
     return (total / 100).toFixed(2).replace('.', ',');
 
   }
@@ -56,15 +60,14 @@ class LenkkiService {
 
 
 
-  store(_id, day, month, year, length, success){
+  store(_id, username, day, month, year, length){
     console.log('storing...', _id);
     console.log('length...', length);
-    let username = this.getUser();
-    $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?apiKey="+API_KEY,
+    let promise = $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?apiKey="+API_KEY,
       data: JSON.stringify( {_id, username, day, month, year, length, date: new Date() } ),
       type: "POST",
-      success,
       contentType: "application/json" } );
+    return promise;
   }
 
 }

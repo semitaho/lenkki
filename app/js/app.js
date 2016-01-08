@@ -50,7 +50,7 @@ function statusChangeCallback(response) {
     FB.api('/me', function (response) {
       console.log('Good to see you', response);
       ReactDOM.render(<Provider store={store}><Lenkki /></Provider>, app);
-      store.dispatch(setName(response.name));
+      store.dispatch(setName(response.id, response.name));
       store.dispatch(fetchData(response.id));
 
     });
