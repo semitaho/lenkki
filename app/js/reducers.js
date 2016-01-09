@@ -18,16 +18,15 @@ function modal(state = modalState, action){
   switch(action.type){
     case CLICK_DAY:
       let currentMonth = new Date(action.year, action.month-1, action.day);
-      let item = lenkkiService.getItem(action.day, action.month-1, action.year, state.user.id, state.data);
       return Object.assign({}, state, {
           show: true,
-          id: item._id,
-          userid: state.user.id,
+          id: action.id,
+          userid: action.userid,
           date: action.day+'.'+action.month+'.'+action.year,
           day: action.day,
           month: action.month-1,
           year: action.year,
-          length: lenkkiService.formatLength(item.length) 
+          length: action.length 
       
       });
     

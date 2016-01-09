@@ -17,12 +17,16 @@ export function setName(id,value) {
   };
 }
 
-export function clickDay(year,month, day){
+export function clickDay(id, userid, length,year,month, day){
+  console.log('id', id);
   return {
     type: CLICK_DAY,
+    id,
     year,
     month,
-    day
+    day,
+    length,
+    userid
   };
 }
 

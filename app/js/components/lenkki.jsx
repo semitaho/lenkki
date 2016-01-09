@@ -70,7 +70,7 @@ function dispatchToProps(dispatch){
     onPrevious : () =>  dispatch(toggleMonth(false)),
     onNext: () => dispatch(toggleMonth(true)),
     changeLength: (val) => dispatch(changeLength(val)),
-    clickDay: (year,month,day) => dispatch(clickDay(year, month, day)),
+    clickDay: (id, userid, length,year,month,day) => dispatch(clickDay(id, userid,length,year, month, day)),
     saveDay: (modal) => dispatch(saveDay(modal))
   };
 }
