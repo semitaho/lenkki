@@ -4,20 +4,36 @@ import assert from 'assert';
 describe('todos reducer', () => {
   it('set name to toni', () =>{
     const initialState = {
-      name: '',
-      data: []
+      calendar: {
+        data: [],
+      },
+      modal:{}
     };
     const expectedState = {
-      name: 'toni',
-      data: []
+      calendar: {
+        user: {
+          name: 'toni',
+          id: 'plaa'
+        },
+         data: []
+      },
+      modal:{}
     };
-    assert.deepEqual(expectedState, reducer(initialState, setName('toni')));
+    console.log('tila', reducer(initialState, setName('plaa', 'toni')));
+    assert.deepEqual(expectedState, reducer(initialState, setName('plaa', 'toni')));
   });
+
+  
 
   it('sets lenkkidata correctly', ()=>{
      const initialState = {
-      name: 'toni',
-      data: []
+      calendar:{
+        user: {
+          name: 'toni'
+        },
+        data: []
+      },
+      modal: {}
     };
 
     let dataFromServer = [{ "_id" : { "$oid" : "568a5cd1e4b0348ab913ec23"} , "username" : "527189480", "day": 29, month: 5},  
@@ -25,11 +41,16 @@ describe('todos reducer', () => {
 
 
     const expectedState = {
-      name: 'toni',
-      data: dataFromServer
+      calendar:{
+        user:{
+          name: 'toni'
+        },
+        data: dataFromServer
+      },
+      modal: {}
     };
 
     assert.deepEqual(expectedState, reducer(initialState, receiveData(dataFromServer)));
-
   });
+
 });

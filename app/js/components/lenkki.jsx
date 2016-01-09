@@ -58,11 +58,10 @@ class Lenkki  extends React.Component {
 
 function select(state){
   return {
-    name: state.name,
-    year: state.year,
-    month: state.month,
-    user: state.user,
-    lenkkidata: state.data,
+    year: state.calendar.year,
+    month: state.calendar.month,
+    user: state.calendar.user,
+    lenkkidata: state.calendar.data,
     modal: state.modal
   };
 }
