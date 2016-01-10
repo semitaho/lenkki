@@ -25,7 +25,7 @@ class Lenkki  extends React.Component {
               </div>
             </div>
              <div className="col-md-2 text-right">
-              Tervetuloa {this.props.name}.
+              Tervetuloa {this.props.user.name}.
             </div>
           </div>
           <div className="row">
