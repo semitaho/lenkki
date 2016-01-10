@@ -14,6 +14,15 @@ const calendarState = {
 
 const modalState = {};
 
+const spinnerState = true;
+
+function spinner(state = spinnerState, action){
+  if (action.type === 'TOGGLE_SPINNER'){
+    return action.value;
+  }
+  return state; 
+}
+
 function modal(state = modalState, action){
   switch(action.type){
     case CLICK_DAY:
@@ -26,7 +35,7 @@ function modal(state = modalState, action){
           day: action.day,
           month: action.month-1,
           year: action.year,
-          length: action.length 
+          length: action.length  
       
       });
     
@@ -83,7 +92,8 @@ function calendar(state = calendarState, action) {
 
 const lenkkiApp = combineReducers({
   calendar,
-  modal
+  modal,
+  spinner
 });
 export default lenkkiApp;
 

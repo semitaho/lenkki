@@ -5,7 +5,7 @@ import UserSelect from './userselect';
 import { connect } from 'react-redux'
 import {toggleMonth, clickDay, saveDay,changeLength} from './../actions';
 import lenkkiService from './../services/lenkkiservice.js';
-
+import Spinner from './spinner.jsx';
 
 class Lenkki  extends React.Component {
 
@@ -50,6 +50,8 @@ class Lenkki  extends React.Component {
             </div> 
           </div>
           <LenkkiModal modal={modal} changeLength={this.props.changeLength} onSave={this.props.saveDay} />
+          {this.props.spinner ?
+          <Spinner /> : ''}
         </div>
     )
   }
@@ -62,7 +64,8 @@ function select(state){
     month: state.calendar.month,
     user: state.calendar.user,
     lenkkidata: state.calendar.data,
-    modal: state.modal
+    modal: state.modal,
+    spinner: state.spinner
   };
 }
 function dispatchToProps(dispatch){
