@@ -12,6 +12,7 @@ class FBShare extends React.Component {
         method: 'feed',
         name: this.props.day + ' hiihdetty: ' + this.props.length + ' km.',
         link: 'https://semitaho.github.io/lenkki',
+        caption: 'Hiihtopäiväkirja'
       },
       // callback
       (response) => {
