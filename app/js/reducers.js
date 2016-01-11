@@ -11,10 +11,27 @@ const calendarState = {
   user: {}
 };
 
+const appState ={showapp: false, showlogin:false};
 const modalState = {};
 const fbshareState = {showdialog: false};
 
 const spinnerState = true;
+
+function app(state = appState, action){
+  if (action.type == 'SHOW_LOGIN'){
+    return Object.assign({}, state, {
+      showlogin: true
+    });
+  }
+
+   if (action.type == 'SHOW_APP'){
+    return Object.assign({}, state, {
+      showapp: true,
+      showlogin: false
+    });
+  }
+  return state;
+}
 
 function spinner(state = spinnerState, action) {
   if (action.type === 'TOGGLE_SPINNER') {
@@ -108,6 +125,7 @@ function calendar(state = calendarState, action) {
 }
 
 const lenkkiApp = combineReducers({
+  app,
   calendar,
   modal,
   spinner,

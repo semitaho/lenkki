@@ -11,7 +11,8 @@ class FBShare extends React.Component {
     FB.ui({
         method: 'feed',
         name: this.props.day + ' hiihdetty: ' + this.props.length + ' km.',
-        link: 'https://semitaho.github.io/lenkki'
+        link: 'https://semitaho.github.io/lenkki',
+        description: 'Hiihtopäiväkirja'
       },
       // callback
       (response) => {

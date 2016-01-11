@@ -9,6 +9,7 @@ export const DID_SHARE = 'DID_SHARE';
 export const TOGGLE_MONTH = 'TOGGLE_MONTH';
 export const RECEIVING = 'RECEIVING';
 export const TOGGLE_SPINNER = 'TOGGLE_SPINNER';
+export const READ_BEST_KILOMETERS = 'READ_BEST_KILOMETERS';
 
 export function toggleSpinner(value) {
   return {
@@ -52,6 +53,21 @@ export function clickDay(id, userid, length, year, month, day) {
   };
 }
 
+export function readBestKilometers(month,year){
+  return dispatch => {
+    return lenkkiService.readBestKilometers(month, year)
+      .then((data) => {
+        console.log('kolikki', data);
+        let topArray = [];
+        data.forEach(item => {
+
+        });
+
+      });
+
+  };
+}
+
 export function saveDay(data) {
   return (dispatch) => {
     dispatch(toggleSpinner(true));
@@ -59,6 +75,7 @@ export function saveDay(data) {
       .then(() => {
         console.log('after store', data.month);
         dispatch(fetchData(data.userid));
+        dispath(readBestKilometers(data.month, data.year));
         let day = data.day + '.' + (data.month + 1) + '.' + data.year;
         dispatch(shareFacebook(day, data.length));
       });

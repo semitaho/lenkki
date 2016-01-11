@@ -10,7 +10,6 @@ class LoginModal extends React.Component {
       FB.login(response => {
         if (response.status === 'connected') {
           location.reload(true);
-
         }
 
       });

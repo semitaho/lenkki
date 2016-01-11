@@ -58,6 +58,16 @@ class LenkkiService {
     return promise;
   }
 
+  readBestKilometers(month, year){
+    let query = {month, year};
+    let queryStr = JSON.stringify(query);
+    let promise = $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?q="+queryStr+"&apiKey="+API_KEY,
+      type: "GET",
+      contentType: "application/json" } );
+    return promise;
+
+  }
+
 
 
   store(_id, username, day, month, year, length){
