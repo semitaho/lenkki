@@ -60,6 +60,13 @@ export function readBestKilometers(month,year){
         console.log('kolikki', data);
         let topArray = [];
         data.forEach(item => {
+          if (!isNaN(item.username)){
+            topArray.push(item.username);
+          }
+        });
+        console.log('array', topArray);
+        FB.api('/', {ids: ['527189480','789651981'], fields: ['picture', 'about', 'name']}, (response) => {
+          console.log('respo', response);
 
         });
 
@@ -75,7 +82,7 @@ export function saveDay(data) {
       .then(() => {
         console.log('after store', data.month);
         dispatch(fetchData(data.userid));
-        dispath(readBestKilometers(data.month, data.year));
+        dispatch(readBestKilometers(data.month, data.year));
         let day = data.day + '.' + (data.month + 1) + '.' + data.year;
         dispatch(shareFacebook(day, data.length));
       });
