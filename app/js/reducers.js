@@ -16,6 +16,16 @@ const modalState = {};
 const fbshareState = {showdialog: false};
 
 const spinnerState = true;
+const topState = {visible: 3, items: []};
+
+function top(state=topState, action){
+  if (action.type === 'RECEIVE_TOP'){
+    return Object.assign({}, state, {
+      items: action.value
+    });
+  }
+  return state;
+}
 
 function app(state = appState, action){
   if (action.type == 'SHOW_LOGIN'){
@@ -129,7 +139,8 @@ const lenkkiApp = combineReducers({
   calendar,
   modal,
   spinner,
-  fbshare
+  fbshare,
+  top
 });
 export default lenkkiApp;
 

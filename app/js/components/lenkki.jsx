@@ -7,6 +7,8 @@ import {toggleMonth, clickDay, saveDay,changeLength, didShare, setName, fetchDat
 import lenkkiService from './../services/lenkkiservice.js';
 import Spinner from './spinner.jsx';
 import FBShare from './fbshare.jsx';
+import Top from './top.jsx';
+
 import LoginModal from './loginmodal.jsx';
 class Lenkki extends React.Component {
 
@@ -60,10 +62,7 @@ class Lenkki extends React.Component {
             </div>
           </div>
           <div className="col-md-3">
-            <h3>TOP 3</h3>
-            <ol>
-              <li>Toni Aho</li>
-            </ol>  
+            <Top {...this.props.top} />
           </div>
         </div>
      {this.props.fbshare && this.props.fbshare.showdialog ?
@@ -151,7 +150,8 @@ function select(state) {
     modal: state.modal,
     spinner: state.spinner,
     fbshare: state.fbshare,
-    app : state.app
+    app : state.app,
+    top: state.top
   };
 }
 function dispatchToProps(dispatch) {

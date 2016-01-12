@@ -57,7 +57,6 @@ export function readBestKilometers(month,year){
   return dispatch => {
     return lenkkiService.readBestKilometers(month, year)
       .then((data) => {
-        console.log('kolikki', data);
         let topArray = [];
         data.forEach(item => {
           if (!isNaN(item.username)){
@@ -65,9 +64,27 @@ export function readBestKilometers(month,year){
           }
         });
         console.log('array', topArray);
-        FB.api('/', {ids: ['527189480','789651981'], fields: ['picture', 'about', 'name']}, (response) => {
-          console.log('respo', response);
+        FB.api('/', {ids: topArray, fields: ['picture', 'about', 'name']}, (response) => {
+          let results = [];
+          data.forEach(item => {
+            let username = item['username'];
 
+            if (response[username]){
+              if (!response[username].length){
+                response[username].length = 0;
+              }
+              response[username].length += item.length;
+
+            }
+
+          });
+          let newArr  = Object.keys(response).map(x => response[x]);
+          newArr.sort((a,b) => b.length - a.length);
+          dispatch({
+            type: 'RECEIVE_TOP',
+            value: newArr
+
+          });
         });
 
       });
