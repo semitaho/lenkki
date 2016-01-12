@@ -59,30 +59,28 @@ export function readBestKilometers(month,year){
       .then((data) => {
         let topArray = [];
         data.forEach(item => {
-          if (!isNaN(item.username)){
+          if (!isNaN(item.username) && topArray.indexOf(item.username) === -1){
             topArray.push(item.username);
           }
         });
-        console.log('array', topArray);
-        FB.api('/', {ids: topArray, fields: ['picture', 'about', 'name']}, (response) => {
+        FB.api('/', {ids: topArray, fields: ['picture', 'name']}, (response) => {
+          let responseArray =Object.keys(response).map(x => response[x]);
           let results = [];
           data.forEach(item => {
             let username = item['username'];
+            let foundResponse = responseArray.find(x => x.id === username);
 
-            if (response[username]){
-              if (!response[username].length){
-                response[username].length = 0;
+            if (foundResponse){
+              if (!foundResponse.length){
+                foundResponse.length = 0;
               }
-              response[username].length += item.length;
-
+              foundResponse.length += item.length;
             }
-
           });
-          let newArr  = Object.keys(response).map(x => response[x]);
-          newArr.sort((a,b) => b.length - a.length);
+          responseArray.sort((a,b) => b.length - a.length);
           dispatch({
             type: 'RECEIVE_TOP',
-            value: newArr
+            value: responseArray
 
           });
         });
