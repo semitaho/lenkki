@@ -15,8 +15,7 @@ class LenkkiService {
     return {};
   }
 
-  getMonthKilometers(month,year,data){
-    let user = this.getUser();
+  getMonthKilometers(user,month,year,data){
     var total = 0;
     data.forEach(item => {
       if (item.year === year && item.month === month && item.username === user && item.length){
@@ -34,12 +33,6 @@ class LenkkiService {
 
   }
 
-  getUser(){
-    if (localStorage && localStorage.user){
-      return localStorage.user;
-    }
-    return 'taho';
-  }
 
   storeUser(user){
     if (localStorage){

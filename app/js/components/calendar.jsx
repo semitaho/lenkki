@@ -52,7 +52,7 @@ class Calendar extends React.Component {
           
                 <div className="row">
                   <div className="col-md-12 text-center calendar-header">
-                         <h3>{monthName} {this.props.year}<br/><small>Kilometrejä tässä kuussa: <b>{lenkkiService.getMonthKilometers(this.props.month-1, this.props.year, this.props.lenkkidata)} km</b></small></h3>
+                         <h3>{monthName} {this.props.year}<br/><small>Kilometrejä tässä kuussa: <b>{lenkkiService.getMonthKilometers(this.props.id,this.props.month-1, this.props.year, this.props.lenkkidata)} km</b></small></h3>
 
          
                   </div>
