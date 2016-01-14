@@ -6763,7 +6763,7 @@ body {
   background-color: #add8e6;
 }
 .day-box {
-  height: 50px;
+  height: 80px;
 }
 .day-box:hover {
   background-color: #5fb3ce;
@@ -6792,4 +6792,7 @@ body {
 .darkened {
   z-index: 1000;
   opacity: 0.3 !important;
+}
+.autocomplete .list-unstyled li:hover {
+  background: #b3b3b3;
 }
