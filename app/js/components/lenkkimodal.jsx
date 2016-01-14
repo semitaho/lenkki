@@ -12,7 +12,7 @@ class LenkkiModal extends React.Component{
 
   render(){
     let track =  this.props.modal.track ? this.props.modal.track : '';
-    console.log('track',track);
+    let tracks = this.props.modal.tracks;
     return (
 
       <div id="lenkkiModal" className="modal fade" role="dialog">
@@ -32,7 +32,7 @@ class LenkkiModal extends React.Component{
                     <label for="reitti">Syötä hiihtopaikka</label>
                 {this.props.modal.show ?  
                   <AutoCompleter
-                      data={ data }
+                      data={tracks}
                       value={track}
                       inputProps={
                         {  
@@ -48,12 +48,10 @@ class LenkkiModal extends React.Component{
                         listItems: 'autocomplete-items'
                       } }
                       onSelect={ (item) => { 
-                        console.log('selected item ', item) 
                         this.props.changeTrack(item);
                     
                       } }
                       onChange={ (value) => { 
-                        console.log('input changed to', value);
                         this.props.changeTrack(value);
                       } }
                       placeholder=''

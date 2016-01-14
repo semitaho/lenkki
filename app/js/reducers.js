@@ -70,6 +70,11 @@ function fbshare(state = fbshareState, action) {
 
 function modal(state = modalState, action) {
   switch (action.type) {
+
+    case 'RECEIVE_TRACKS':
+      let tracks = action.tracks;
+      return Object.assign({}, state, {tracks});
+      
     case CLICK_DAY:
       let currentMonth = new Date(action.year, action.month - 1, action.day);
       return Object.assign({}, state, {

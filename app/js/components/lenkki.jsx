@@ -3,7 +3,7 @@ import Calendar from './calendar';
 import LenkkiModal from './lenkkimodal';
 import UserSelect from './userselect';
 import { connect } from 'react-redux'
-import {toggleMonth, clickDay, saveDay,changeLength, closeModal,changeTrack, didShare, setName, fetchData,readBestKilometers} from './../actions';
+import {toggleMonth, clickDay, saveDay,changeLength, closeModal,changeTrack, fetchTracks,didShare, setName, fetchData,readBestKilometers} from './../actions';
 import lenkkiService from './../services/lenkkiservice.js';
 import Spinner from './spinner.jsx';
 import FBShare from './fbshare.jsx';
@@ -80,7 +80,6 @@ class Lenkki extends React.Component {
   componentDidMount(){
     window.fbAsyncInit = () =>  {
      if (window.location.hostname.indexOf('semitaho.github.io') > -1) {
-        console.log('going prod');
         FB.init({
           appId: '6632016037',
           xfbml: true,
@@ -122,6 +121,7 @@ class Lenkki extends React.Component {
       console.log('Good to see you', response);
       this.props.showApp();
       this.props.setName(response.id, response.name);
+      this.props.fetchTracks();
       this.props.fetchData(response.id);
       this.props.readBestKilometers(this.props.month-1, this.props.year);
 
@@ -165,6 +165,7 @@ function dispatchToProps(dispatch) {
     showApp : () => dispatch({type: 'SHOW_APP'}),
     setName : (param1, param2) => dispatch(setName(param1, param2)),
     fetchData : (param1) => dispatch(fetchData(param1)),
+    fetchTracks : () => dispatch(fetchTracks()),
     readBestKilometers: (month,year) => dispatch(readBestKilometers(month,year)),
     showLogin : () => dispatch({type: 'SHOW_LOGIN'}),
     changeTrack: (track) => dispatch(changeTrack(track)),
