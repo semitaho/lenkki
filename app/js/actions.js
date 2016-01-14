@@ -18,11 +18,12 @@ export function toggleSpinner(value) {
   };
 }
 
-export function shareFacebook(day, length) {
+export function shareFacebook(day, length, track) {
   return {
     type: SHARE_FACEBOOK,
     day,
-    length
+    length,
+    track
   }
 }
 
@@ -40,8 +41,8 @@ export function setName(id, value) {
   };
 }
 
-export function clickDay(id, userid, length, year, month, day) {
-  console.log('id', id);
+export function clickDay(id, userid, length, year, month, day, track) {
+  console.log('id', track);
   return {
     type: CLICK_DAY,
     id,
@@ -49,7 +50,14 @@ export function clickDay(id, userid, length, year, month, day) {
     month,
     day,
     length,
-    userid
+    userid,
+    track
+  };
+}
+
+export function closeModal(){
+  return {
+    type: 'CLOSE_MODAL'
   };
 }
 
@@ -93,13 +101,13 @@ export function readBestKilometers(month,year){
 export function saveDay(data) {
   return (dispatch) => {
     dispatch(toggleSpinner(true));
-    return lenkkiService.store(data.id, data.userid, data.day, data.month, data.year, data.length.replace(',', '.') * 100)
+    return lenkkiService.store(data.id, data.userid, data.day, data.month, data.year, data.length.replace(',', '.') * 100, data.track)
       .then(() => {
         console.log('after store', data.month);
         dispatch(fetchData(data.userid));
         dispatch(readBestKilometers(data.month, data.year));
         let day = data.day + '.' + (data.month + 1) + '.' + data.year;
-        dispatch(shareFacebook(day, data.length));
+        dispatch(shareFacebook(day, data.length, data.track));
       });
 
   };
@@ -110,6 +118,13 @@ export function changeLength(length) {
     type: CHANGE_LENGTH,
     length
   }
+}
+
+export function changeTrack(track){
+  return {
+    type: 'CHANGE_TRACK',
+    track
+  };
 }
 
 export function toggleMonth(direction) {

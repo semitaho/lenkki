@@ -56,6 +56,7 @@ function fbshare(state = fbshareState, action) {
       return Object.assign({}, state, {
         day: action.day,
         showdialog: true,
+        track: action.track,
         length: action.length
       });
     case DID_SHARE:
@@ -79,9 +80,17 @@ function modal(state = modalState, action) {
         day: action.day,
         month: action.month - 1,
         year: action.year,
-        length: action.length
+        length: action.length,
+        track: action.track
 
       });
+    case 'CLOSE_MODAL':
+      return {show: false};
+
+    case 'CHANGE_TRACK':
+      return Object.assign({}, state, {
+        track: action.track
+      });  
 
     case CHANGE_LENGTH:
       var pattern = /^\d+((\,)?\d{0,2})?$/;

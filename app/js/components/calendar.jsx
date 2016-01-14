@@ -5,11 +5,6 @@ import lenkkiService from './../services/lenkkiservice.js';
 
 class Calendar extends React.Component {
 
-  constructor(){
-    super();
-    this.state = {showmodal : false};
-  }
-
   renderDays(){
     let monthdays = [31,28,31,30,31,30,31,31,30,31,30,31];
     var firstDay = new Date(this.props.year, this.props.month-1, 1);
@@ -27,10 +22,11 @@ class Calendar extends React.Component {
           let currentClass = day === currentDay && this.props.month === currentMonth+1 ? 'current' : '';
           let item = lenkkiService.getItem(day, this.props.month-1, this.props.year, this.props.id, this.props.lenkkidata);
           let currentday = day;
+          let track = item.track;
 
           let length = item.length ? (item.length / 100).toFixed(2).replace('.', ',') : '';
           let objectid = item._id ? item._id : null;
-          html.push(<div className="col-box text-right day-box" onClick={() => this.props.onClick(objectid, this.props.id,length, this.props.year, this.props.month, currentday) }  ><Day _id={item._id} length={length} value={day} state={currentClass} /></div>);
+          html.push(<div className="col-box text-right day-box" onClick={() => this.props.onClick(objectid, this.props.id,length, this.props.year, this.props.month, currentday, track) }  ><Day _id={item._id} length={length} value={day} state={currentClass} track={track} /></div>);
           day++;
         } else {
           html.push(<div className="col-box" />)

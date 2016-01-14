@@ -63,11 +63,11 @@ class LenkkiService {
 
 
 
-  store(_id, username, day, month, year, length){
+  store(_id, username, day, month, year, length, track){
     console.log('storing...', _id);
     console.log('length...', length);
     let promise = $.ajax( { url: "https://api.mongolab.com/api/1/databases/lenkki/collections/ski_days?apiKey="+API_KEY,
-      data: JSON.stringify( {_id, username, day, month, year, length, date: new Date() } ),
+      data: JSON.stringify( {_id, username, day, month, year, length, track, date: new Date() } ),
       type: "POST",
       contentType: "application/json" } );
     return promise;

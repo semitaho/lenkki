@@ -3,7 +3,7 @@ import Calendar from './calendar';
 import LenkkiModal from './lenkkimodal';
 import UserSelect from './userselect';
 import { connect } from 'react-redux'
-import {toggleMonth, clickDay, saveDay,changeLength, didShare, setName, fetchData,readBestKilometers} from './../actions';
+import {toggleMonth, clickDay, saveDay,changeLength, closeModal,changeTrack, didShare, setName, fetchData,readBestKilometers} from './../actions';
 import lenkkiService from './../services/lenkkiservice.js';
 import Spinner from './spinner.jsx';
 import FBShare from './fbshare.jsx';
@@ -66,9 +66,9 @@ class Lenkki extends React.Component {
           </div>
         </div>
      {this.props.fbshare && this.props.fbshare.showdialog ?
-          <FBShare length={this.props.fbshare.length} day={this.props.fbshare.day} didShare={this.props.didShare}/>
+          <FBShare track={this.props.fbshare.track} length={this.props.fbshare.length} day={this.props.fbshare.day} didShare={this.props.didShare}/>
           : '' }
-        <LenkkiModal modal={modal} changeLength={this.props.changeLength} onSave={this.props.saveDay}/>
+        <LenkkiModal modal={modal} onClose={this.props.closeModal} changeTrack={this.props.changeTrack} changeLength={this.props.changeLength} onSave={this.props.saveDay}/> 
         {this.props.spinner && !app.showlogin ?
           <Spinner /> : ''}
      </div>
@@ -159,14 +159,16 @@ function dispatchToProps(dispatch) {
     onPrevious: () =>  dispatch(toggleMonth(false)),
     onNext: () => dispatch(toggleMonth(true)),
     changeLength: (val) => dispatch(changeLength(val)),
-    clickDay: (id, userid, length, year, month, day) => dispatch(clickDay(id, userid, length, year, month, day)),
+    clickDay: (id, userid, length, year, month, day, track) => dispatch(clickDay(id, userid, length, year, month, day, track)),
     saveDay: (modal) => dispatch(saveDay(modal)),
     didShare: () => dispatch(didShare()),
     showApp : () => dispatch({type: 'SHOW_APP'}),
     setName : (param1, param2) => dispatch(setName(param1, param2)),
     fetchData : (param1) => dispatch(fetchData(param1)),
     readBestKilometers: (month,year) => dispatch(readBestKilometers(month,year)),
-    showLogin : () => dispatch({type: 'SHOW_LOGIN'})
+    showLogin : () => dispatch({type: 'SHOW_LOGIN'}),
+    changeTrack: (track) => dispatch(changeTrack(track)),
+    closeModal: () => dispatch(closeModal())
   };
 }
 

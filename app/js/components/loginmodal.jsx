@@ -11,7 +11,6 @@ class LoginModal extends React.Component {
         if (response.status === 'connected') {
           location.reload(true);
         }
-
       });
     };
     return (<div id="modallogin" className="modal fade" tabIndex="-1">
