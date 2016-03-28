@@ -26,7 +26,7 @@ class Calendar extends React.Component {
 
           let length = item.length ? (item.length / 100).toFixed(2).replace('.', ',') : '';
           let objectid = item._id ? item._id : null;
-          html.push(<div className="col-box text-right day-box" onClick={() => this.props.onClick(objectid, this.props.id,length, this.props.year, this.props.month, currentday, track) }  ><Day _id={item._id} length={length} value={day} state={currentClass} track={track} /></div>);
+          html.push(<div data-target="#lenkkiModal" data-toggle="modal"   className="col-box text-right day-box" onClick={() => this.props.onClick(objectid, this.props.id,length, this.props.year, this.props.month, currentday, track) }  ><Day _id={item._id} length={length} value={day} state={currentClass} track={track} /></div>);
           day++;
         } else {
           html.push(<div className="col-box" />)

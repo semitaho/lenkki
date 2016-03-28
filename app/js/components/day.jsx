@@ -7,7 +7,7 @@ class Day  extends React.Component {
   }
 
   render(){
-    return (<div className="row" data-target="#lenkkiModal" data-toggle="modal"  className={this.props.state}>
+    return (<div className="row" className={this.props.state}>
         <div className="col-md-12">{this.props.value}</div>
 
         {this.props.length ? <div className="col-md-12"><small><b>{this.props.length} km</b></small></div> : ''}

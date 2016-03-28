@@ -10,7 +10,6 @@ class Spinner extends React.Component {
   }
 
   componentWillUnmount() {
-
     var jht = $('body');
     jht.removeClass('darkened');
   }
