@@ -35,7 +35,7 @@ class Lenkki extends React.Component {
         
         <div className="row">
           <div className="col-md-10">
-            <h1>Hiihtopäiväkirja</h1>
+            <h1>Lenkkipäiväkirja</h1>
           </div>
         </div>
 
